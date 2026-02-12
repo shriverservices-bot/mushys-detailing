@@ -1,7 +1,12 @@
 import { GoogleGenAI } from "@google/genai";
 import { ChatMessage } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+if (!apiKey) {
+  console.warn("Missing VITE_GEMINI_API_KEY environment variable. AI features may not work.");
+}
+
+const ai = new GoogleGenAI({ apiKey });
 
 const SYSTEM_INSTRUCTION = `
 You are "Mushy's Detailing Virtual Consultant." Your goal is to help users find the perfect car wash or detailing package.
